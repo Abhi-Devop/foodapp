@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: grubhub-api
+    env: node
+    buildCommand: npm install && npx prisma generate --schema=packages/database/schema.prisma && npx turbo run build --filter=api
+    startCommand: npm run start:prod --workspace=api
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: PAYPAL_CLIENT_ID
+        sync: false
+      - key: PAYPAL_CLIENT_SECRET
+        sync: false
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: FIREBASE_PRIVATE_KEY
+        sync: false
+      - key: FIREBASE_CLIENT_EMAIL
+        sync: false
