@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateReservationDto } from './reservations.controller';
+import { CreateReservationDto } from './dto/create-reservation.dto';
 
 @Injectable()
 export class ReservationsService {
@@ -31,7 +31,7 @@ export class ReservationsService {
 
   async getAllReservations() {
     return this.prisma.reservation.findMany({
-      orderBy: { createdAt: 'desc' }
+      orderBy: { date: 'desc' }
     });
   }
 }
