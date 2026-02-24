@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useReservationStore } from "@/store/useReservationStore";
 
 export default function FineDiningHero() {
+  const setIsOpen = useReservationStore((state) => state.setIsOpen);
   return (
     <div className="relative w-full h-[70vh] min-h-[600px] overflow-hidden">
       {/* Background (Video/Image) */}
@@ -64,11 +66,12 @@ export default function FineDiningHero() {
             </button>
 
             {/* Secondary Transparent Button - Link to Reservations */}
-            <Link href="/reservations">
-               <button className="bg-transparent text-[#C5A880] border border-[#C5A880]/40 px-10 py-3.5 font-sans tracking-[0.2em] text-[11px] uppercase hover:bg-[#C5A880] hover:text-black transition-colors duration-500">
-                  Book a Table
-               </button>
-            </Link>
+            <button 
+               onClick={() => setIsOpen(true)}
+               className="bg-transparent text-[#C5A880] border border-[#C5A880]/40 px-10 py-3.5 font-sans tracking-[0.2em] text-[11px] uppercase hover:bg-[#C5A880] hover:text-black transition-colors duration-500"
+            >
+               Book a Table
+            </button>
          </motion.div>
       </div>
     </div>

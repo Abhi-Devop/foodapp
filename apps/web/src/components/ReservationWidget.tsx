@@ -3,13 +3,15 @@
 import { useState } from 'react';
 import { useReservationStore } from '@/store/useReservationStore';
 import { Calendar, Clock, Users, CheckCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { apiService } from '@/lib/api';
 
 export default function ReservationWidget() {
-  const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   
   const {
+    isOpen,
+    setIsOpen,
     selectedDate,
     timeSlot,
     guestCount,
@@ -25,30 +27,21 @@ export default function ReservationWidget() {
     
     setIsSubmitting(true);
     try {
-      // Assuming Next.js app running on :3000 and API on :3002, use relative or env API URL.
-      // We will hit the API endpoint created earlier
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
-      const response = await fetch(`${apiUrl}/reservations`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          customerName: 'Guest', // Hardcoded or ideally fetched from auth context
-          email: 'guest@example.com',
-          phone: '0000000000',
-          date: new Date(selectedDate).toISOString(),
-          timeSlot,
-          guestCount,
-        }),
+      await apiService.createReservation({
+        customerName: 'Guest', // Hardcoded or ideally fetched from auth context
+        email: 'guest@example.com',
+        phone: '0000000000',
+        date: new Date(selectedDate).toISOString(),
+        timeSlot,
+        guestCount,
       });
 
-      if (response.ok) {
-        setIsSuccess(true);
+      setIsSuccess(true);
         setTimeout(() => {
           setIsSuccess(false);
           setIsOpen(false);
           resetReservation();
         }, 3000);
-      }
     } catch (error) {
       console.error('Reservation failed:', error);
     } finally {
@@ -60,7 +53,7 @@ export default function ReservationWidget() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-black/90 text-white px-6 py-3 rounded-full shadow-2xl backdrop-blur-md hover:scale-105 transition-transform border border-white/10"
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-black/90 text-white px-6 py-3 rounded-full shadow-2xl backdrop-blur-md transition-all duration-500 ease-in-out border border-white/10 translate-x-[75%] hover:translate-x-0 opacity-70 hover:opacity-100"
       >
         <Calendar className="w-5 h-5" />
         <span className="font-semibold tracking-wide">Book a Table</span>

@@ -143,6 +143,16 @@ export const apiService = {
       if (!res.ok) throw new Error("Payment verification failed");
       return res.json();
   },
+
+  createReservation: async (data: any) => {
+      const res = await fetch(`${API_URL}/reservations`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error("Reservation creation failed");
+      return res.json();
+  },
   
 
 
