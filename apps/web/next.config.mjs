@@ -79,6 +79,50 @@ const nextConfig = {
       },
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: '/categories',
+        destination: '/coming-soon',
+        permanent: false,
+      },
+      {
+        source: '/about',
+        destination: '/coming-soon',
+        permanent: false,
+      },
+      {
+        source: '/private-dining',
+        destination: '/coming-soon',
+        permanent: false,
+      },
+      {
+        source: '/chefs',
+        destination: '/coming-soon',
+        permanent: false,
+      },
+      {
+        source: '/contact',
+        destination: '/coming-soon',
+        permanent: false,
+      },
+      {
+        source: '/faq',
+        destination: '/coming-soon',
+        permanent: false,
+      },
+      {
+        source: '/terms',
+        destination: '/coming-soon',
+        permanent: false,
+      },
+      {
+        source: '/privacy',
+        destination: '/coming-soon',
+        permanent: false,
+      },
+    ]
+  },
 };
 
 export default nextConfig;

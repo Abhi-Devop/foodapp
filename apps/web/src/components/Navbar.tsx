@@ -27,20 +27,20 @@ export default function Navbar() {
 
   return (
     <>
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[#2D5A27]/5 h-[100px] flex items-center transition-all duration-500 shadow-elevation-low hover:shadow-elevation-mid">
-      <div className="max-w-7xl mx-auto w-full px-8 flex items-center justify-between gap-12">
+    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[#2D5A27]/5 h-[100px] flex items-center transition-all duration-500 shadow-elevation-low hover:shadow-elevation-mid max-md:h-[80px]">
+      <div className="max-w-7xl mx-auto w-full px-8 flex items-center justify-between gap-12 max-md:px-4 max-md:gap-4">
         
         {/* Left: Logo & Location */}
         <div className="flex items-center gap-12">
           <Link href="/" className="flex flex-col leading-none group relative overflow-hidden">
              <motion.span 
                 whileHover={{ y: -2, transition: { duration: 0.3 } }}
-                className="text-4xl font-serif text-[#1e3e1a] font-black tracking-tight group-hover:text-[#D35400] transition-colors"
+                className="text-4xl font-serif text-[#1e3e1a] font-black tracking-tight group-hover:text-[#D35400] transition-colors max-md:text-2xl"
              >
                 GRUBHUB
              </motion.span>
-             <span className="text-[11px] font-bold text-gray-400 tracking-[0.3em] uppercase mt-1.5 opacity-80 flex items-center gap-1">
-                <Sparkles size={10} className="text-[#D35400]" /> Epicurean <span className="text-[#D35400]">Concierge</span>
+             <span className="text-[11px] font-bold text-gray-400 tracking-[0.3em] uppercase mt-1.5 opacity-80 flex items-center gap-1 max-md:text-[8px] max-md:mt-0.5">
+                <Sparkles size={10} className="text-[#D35400] max-md:w-2 max-md:h-2" /> Epicurean <span className="text-[#D35400]">Concierge</span>
              </span>
           </Link>
 
@@ -71,7 +71,7 @@ export default function Navbar() {
         </div>
 
         {/* Right: Profile & Cart */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 max-md:gap-3">
             {isAuthenticated ? (
                 <div className="relative">
                     <motion.button 
