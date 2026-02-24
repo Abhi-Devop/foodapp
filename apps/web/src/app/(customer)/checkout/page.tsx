@@ -55,7 +55,7 @@ const PaymentAccordion = ({
     >
       <button 
         onClick={onToggle}
-        className="w-full flex items-center justify-between px-6 py-5 text-left outline-none group"
+        className="w-full flex items-center justify-between p-4 text-left outline-none group"
       >
         <div className="flex items-center gap-5">
            <div className={`transition-colors duration-500 ${isOpen ? 'text-[#d4af37]' : 'text-stone-300 group-hover:text-stone-500'}`}>
@@ -80,7 +80,7 @@ const PaymentAccordion = ({
             transition={{ type: "spring", damping: 30, stiffness: 200 }}
             className="overflow-hidden"
           >
-             <div className="px-6 pb-8 pt-1">
+             <div className="px-4 pb-4 pt-1">
                 {children}
              </div>
           </motion.div>
@@ -213,9 +213,9 @@ export default function CheckoutPage() {
     <div className="h-screen bg-[#fafaf9] font-sans selection:bg-[#d4af37]/20 selection:text-[#d4af37] flex flex-col overflow-hidden">
       <Navbar />
       
-      <div className="flex-1 max-w-7xl mx-auto w-full px-8 py-8 flex flex-col overflow-hidden">
+      <div className="flex-1 max-w-7xl mx-auto w-full px-8 py-6 flex flex-col overflow-hidden">
         <header className="mb-6 shrink-0">
-            <div className="flex items-center gap-5 text-[10px] font-black uppercase tracking-[0.3em] text-stone-300 mb-2">
+            <div className="flex items-center gap-5 text-[10px] font-black uppercase tracking-[0.3em] text-stone-300 mb-1">
                 <Link href="/cart" className="hover:text-[#d4af37] transition-colors">Cart</Link>
                 <ChevronRight size={12} strokeWidth={3} className="text-stone-200" />
                 <span className="text-stone-900 border-b-2 border-stone-900 pb-0.5">Payment</span>
@@ -225,13 +225,13 @@ export default function CheckoutPage() {
             <h1 className="text-4xl md:text-5xl font-serif font-light text-[#0f291e] tracking-tight leading-none">Complete Your Order</h1>
         </header>
         
-        <main className="flex-1 min-h-0 flex flex-col lg:grid lg:grid-cols-12 gap-10">
+        <main className="flex-1 min-h-0 flex flex-col-reverse lg:grid lg:grid-cols-12 gap-8">
             
             {/* LEFT COLUMN - Payments */}
             <div className="lg:col-span-7 flex flex-col min-h-0">
-                <h3 className="text-[11px] font-black text-stone-400 uppercase tracking-[0.3em] mb-5 shrink-0">Select Payment Method</h3>
+                <h3 className="text-xs font-semibold tracking-widest uppercase text-stone-400 mb-3 shrink-0">Select Payment Method</h3>
                 
-                <div className="flex-1 min-h-0 overflow-y-auto rounded-[2.5rem] border border-stone-200 bg-white shadow-2xl custom-scrollbar-light">
+                <div className="flex-1 min-h-0 overflow-y-auto rounded-2xl border border-stone-200 bg-white shadow-xl custom-scrollbar-light overflow-hidden">
                     <PaymentAccordion 
                       id="upi"
                       title="Unified Payments Interface" 
@@ -255,7 +255,7 @@ export default function CheckoutPage() {
                                        setUpiId(e.target.value);
                                        setIsValidUpi(null);
                                    }}
-                                   className="w-full bg-transparent border-b-2 border-stone-100 py-4 text-base font-bold placeholder:text-stone-200 outline-none focus:border-[#0f291e] transition-colors rounded-none h-12"
+                                   className="w-full bg-transparent border-b-2 border-stone-100 py-2 text-sm font-bold placeholder:text-stone-200 outline-none focus:border-[#0f291e] transition-colors rounded-none h-10"
                                  />
                                  <div className="absolute right-0 bottom-4">
                                     {isValidUpi === null && (
@@ -296,11 +296,11 @@ export default function CheckoutPage() {
                       isOpen={openSection === "cards"}
                       onToggle={() => setOpenSection("cards")}
                     >
-                        <form onSubmit={(e) => { e.preventDefault(); handlePlaceOrder(); }} className="max-w-md space-y-6">
-                            <input type="text" placeholder="Card Number" className="w-full bg-transparent border-b-2 border-stone-100 py-4 text-base font-bold placeholder:text-stone-200 outline-none focus:border-[#0f291e] transition-colors rounded-none h-12" />
-                            <div className="grid grid-cols-2 gap-8">
-                                 <input type="text" placeholder="MM / YY" className="w-full bg-transparent border-b-2 border-stone-100 py-4 text-base font-bold placeholder:text-stone-200 outline-none focus:border-[#0f291e] transition-colors rounded-none h-12" />
-                                 <input type="password" placeholder="CVV" className="w-full bg-transparent border-b-2 border-stone-100 py-4 text-base font-bold placeholder:text-stone-200 outline-none focus:border-[#0f291e] transition-colors rounded-none h-12" />
+                        <form onSubmit={(e) => { e.preventDefault(); handlePlaceOrder(); }} className="max-w-md space-y-4">
+                            <input type="text" placeholder="Card Number" className="w-full bg-transparent border-b-2 border-stone-100 py-2 text-sm font-bold placeholder:text-stone-200 outline-none focus:border-[#0f291e] transition-colors rounded-none h-10" />
+                            <div className="grid grid-cols-2 gap-4">
+                                 <input type="text" placeholder="MM / YY" className="w-full bg-transparent border-b-2 border-stone-100 py-2 text-sm font-bold placeholder:text-stone-200 outline-none focus:border-[#0f291e] transition-colors rounded-none h-10" />
+                                 <input type="password" placeholder="CVV" className="w-full bg-transparent border-b-2 border-stone-100 py-2 text-sm font-bold placeholder:text-stone-200 outline-none focus:border-[#0f291e] transition-colors rounded-none h-10" />
                             </div>
                         </form>
                     </PaymentAccordion>
@@ -347,14 +347,14 @@ export default function CheckoutPage() {
             {/* RIGHT COLUMN - Selection Summary */}
             <aside className="lg:col-span-5 flex flex-col min-h-0">
                 
-                <h3 className="text-[11px] font-black text-stone-400 uppercase tracking-[0.3em] mb-5 shrink-0">Your Selection</h3>
+                <h3 className="text-xs font-semibold tracking-widest uppercase text-stone-400 mb-3 shrink-0">Your Selection</h3>
                 <motion.div 
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="bg-[#0f291e] p-8 rounded-[3rem] text-stone-100 shadow-2xl relative overflow-hidden flex-1 min-h-0 flex flex-col"
+                    className="bg-[#0f291e] p-5 rounded-2xl text-sm text-stone-100 shadow-2xl relative overflow-hidden flex-1 min-h-0 flex flex-col"
                 >
-                    <div className="flex-1 min-h-0 overflow-y-auto pr-4 custom-scrollbar-dark mb-8">
-                        <div className="space-y-6">
+                    <div className="flex-1 min-h-0 overflow-y-auto pr-4 custom-scrollbar-dark mb-4">
+                        <div className="space-y-4">
                           {items.map(item => (
                               <div key={item.storeProductId} className="flex justify-between items-center group">
                                   <div className="flex flex-col gap-1">
@@ -368,7 +368,7 @@ export default function CheckoutPage() {
                         </div>
                     </div>
 
-                    <div className="space-y-4 border-t border-white/10 pt-8 shrink-0">
+                    <div className="space-y-3 border-t border-white/10 pt-4 shrink-0">
                         <div className="flex justify-between text-[11px] font-extrabold text-white/40 uppercase tracking-[0.2em]">
                              <span>Subtotal</span>
                              <span className="text-white">₹{(subtotal / 100).toFixed(2)}</span>
@@ -377,13 +377,13 @@ export default function CheckoutPage() {
                              <span>Priority Delivery</span>
                              <span className="text-[#d4af37]">Reserved</span>
                         </div>
-                        <div className="pt-6 flex justify-between items-end">
+                        <div className="pt-4 flex justify-between items-end">
                             <span className="text-[11px] font-black uppercase tracking-[0.5em] text-white/20">Final Amount</span>
                             <span className="text-5xl font-serif font-light text-[#d4af37] tabular-nums leading-none tracking-tighter">₹{(grandTotal / 100).toFixed(2)}</span>
                         </div>
                         
                         {/* DESKTOP CTA */}
-                        <div className="hidden lg:block pt-8">
+                        <div className="hidden lg:block pt-4">
                            <AnimatedCheckoutButton 
                                onClick={handlePlaceOrder} 
                                label="SECURE SETTLEMENT" 
