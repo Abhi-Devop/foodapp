@@ -43,6 +43,8 @@ export const metadata: Metadata = {
 
 import Script from "next/script";
 
+import ReservationWidget from "@/components/ReservationWidget";
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -62,6 +64,7 @@ export default async function RootLayout({
             <CartAnimationProvider>
               <div className="min-h-screen">
                   {children}
+                  <ReservationWidget />
               </div>
             </CartAnimationProvider>
           </Providers>

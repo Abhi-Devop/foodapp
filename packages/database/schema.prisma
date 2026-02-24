@@ -177,3 +177,15 @@ enum PaymentMethod {
   UPI
   CASH
 }
+
+model Reservation {
+  id             String   @id @default(uuid())
+  customerName   String
+  email          String
+  phone          String
+  date           DateTime @db.Timestamptz(6)
+  timeSlot       String
+  guestCount     Int
+  specialRequests String?
+  status         String   @default("PENDING")
+}

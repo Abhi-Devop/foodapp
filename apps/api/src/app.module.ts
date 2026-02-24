@@ -12,6 +12,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PaymentModule } from './payment/payment.module';
 import { AddressModule } from './address/address.module';
 import { WebhooksModule } from './webhooks/webhooks.module';
+import { ReservationsModule } from './reservations/reservations.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { WebhooksModule } from './webhooks/webhooks.module';
     AuthModule,
     PaymentModule,
     AddressModule,
-    WebhooksModule
+    WebhooksModule,
+    ReservationsModule
   ],
   controllers: [AppController],
   providers: [AppService],
