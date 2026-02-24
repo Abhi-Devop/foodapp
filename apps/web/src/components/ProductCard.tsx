@@ -34,7 +34,7 @@ export default function ProductCard({ item }: ProductCardProps) {
 
   return (
     <motion.div 
-        className="bg-white rounded-[2rem] border border-gray-100/80 flex flex-col h-full card-hover group relative overflow-hidden"
+        className="bg-white rounded-[2rem] border border-gray-100/80 flex flex-col h-full card-hover group relative overflow-hidden border-white/10 shadow-[0_4px_20px_rgba(212,175,55,0.1)] backdrop-blur-md transition-all duration-500 hover:scale-[1.02] hover:shadow-xl"
     >
         <Link href={`/product/${encodeURIComponent(item.slug ?? item.sku ?? item.id)}`} className="absolute inset-0 z-10" />
         
@@ -94,7 +94,7 @@ export default function ProductCard({ item }: ProductCardProps) {
                 <motion.button 
                     whileTap={{ scale: 0.92 }}
                     onClick={handleAdd}
-                    className="btn-tactile group/btn relative overflow-hidden bg-gray-900 text-white font-bold text-[10px] h-9 px-6 rounded-xl flex items-center justify-center hover:bg-[#D35400] transition-all shadow-lg hover:shadow-[#D35400]/20 uppercase tracking-widest ring-1 ring-white/10"
+                    className="btn-tactile group/btn relative overflow-hidden bg-gray-900 text-white font-bold text-[10px] h-9 px-6 rounded-xl flex items-center justify-center hover:bg-[#D35400] transition-all shadow-lg hover:shadow-[#D35400]/20 uppercase tracking-widest ring-1 ring-white/10 transition-all duration-500 hover:opacity-80"
                 >
                     <span className="relative z-10 flex items-center gap-2">
                         ADD <Plus size={14} strokeWidth={3} />

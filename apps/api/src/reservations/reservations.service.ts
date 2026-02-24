@@ -28,4 +28,10 @@ export class ReservationsService {
       message: 'Reservations are open.',
     };
   }
+
+  async getAllReservations() {
+    return this.prisma.reservation.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+  }
 }

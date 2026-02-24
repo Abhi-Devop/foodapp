@@ -196,7 +196,7 @@ export default function CheckoutPage() {
                       <ShoppingBag size={40} strokeWidth={1.5} className="text-stone-400" />
                     </div>
                 </motion.div>
-                <h2 className="text-3xl font-serif font-light text-stone-900 mb-4 tracking-wide">Your Table is Clear</h2>
+                <h2 className="text-3xl font-serif font-light text-stone-900 mb-4 tracking-wide font-[var(--font-reserve)]">Your Table is Clear</h2>
                 <p className="text-stone-400 font-bold mb-10 max-w-xs text-xs uppercase tracking-widest leading-loose">Our curated menu awaits your selection for an exquisite dining journey.</p>
                 <button 
                   onClick={() => router.push("/")} 
@@ -222,7 +222,7 @@ export default function CheckoutPage() {
                 <ChevronRight size={12} strokeWidth={3} className="text-stone-200" />
                 <span className="opacity-30">Confirmation</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-serif font-light text-[#0f291e] tracking-tight leading-none">Complete Your Order</h1>
+            <h1 className="text-4xl md:text-5xl font-serif font-light text-[#0f291e] tracking-tight leading-none font-[var(--font-reserve)]">Complete Your Order</h1>
         </header>
         
         <main className="flex-1 min-h-0 flex flex-col-reverse lg:grid lg:grid-cols-12 gap-8">

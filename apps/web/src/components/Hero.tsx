@@ -26,7 +26,7 @@ export default function Hero() {
             transition={{ duration: 0.8 }}
             className="max-w-3xl text-white"
         >
-            <h1 className="text-5xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 drop-shadow-lg">
+            <h1 className="text-5xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 drop-shadow-lg font-[var(--font-reserve)]">
                 Hungry? <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">
                     We've Got You.

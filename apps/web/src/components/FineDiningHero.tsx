@@ -39,8 +39,8 @@ export default function FineDiningHero() {
              <p className="text-white/90 text-[10px] font-sans font-medium uppercase tracking-[0.4em] mb-6">
                The Reserve Collection
              </p>
-             <h1 className="text-6xl md:text-8xl font-serif text-white mb-10 leading-[0.9] tracking-tight drop-shadow-lg">
-               Culinary<br/><span className="italic text-[#C5A880]">Excellence.</span>
+             <h1 className="text-6xl md:text-8xl font-serif text-white mb-10 leading-[0.9] tracking-tight drop-shadow-lg font-[var(--font-reserve)]">
+               Culinary<br/><span className="italic text-[#C5A880] font-[var(--font-reserve)]">Excellence.</span>
              </h1>
          </motion.div>
 

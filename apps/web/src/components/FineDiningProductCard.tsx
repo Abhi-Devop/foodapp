@@ -55,7 +55,7 @@ export default function FineDiningProductCard({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true, margin: "-50px" }}
-      className="group relative flex flex-col"
+      className="group relative flex flex-col border-white/10 shadow-[0_4px_20px_rgba(212,175,55,0.1)] backdrop-blur-md transition-all duration-500 hover:scale-[1.02] hover:shadow-xl bg-white p-3 rounded-2xl"
     >
       {/* Image Container */}
       <Link href={`/product/${id}`} className="block relative mb-6 overflow-hidden bg-[#fdfbf7] group-hover:shadow-elevation-low transition-all">
@@ -109,7 +109,7 @@ export default function FineDiningProductCard({
             
             <button 
                onClick={handleAdd}
-               className="text-[11px] font-sans tracking-[0.15em] uppercase text-[#1a1a1a] hover:text-[#C5A880] transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-px after:bg-[#1a1a1a] hover:after:bg-[#C5A880] after:transition-colors text-left sm:text-right"
+               className="text-[11px] font-sans tracking-[0.15em] uppercase text-[#1a1a1a] hover:text-[#C5A880] transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-px after:bg-[#1a1a1a] hover:after:bg-[#C5A880] after:transition-colors text-left sm:text-right transition-all duration-500 hover:opacity-80"
             >
                Add to Bag
             </button>

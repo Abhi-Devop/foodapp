@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import { CartAnimationProvider } from "@/components/FlyingCartAnimation";
-import { Outfit, Cormorant_Garamond } from "next/font/google";
+import { Outfit, Cormorant_Garamond, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import Header from "@/components/Header";
@@ -17,6 +17,12 @@ const cormorant = Cormorant_Garamond({
   weight: ['300', '400', '500', '600', '700'],
   subsets: ["latin"],
   variable: "--font-playfair",
+});
+
+const playfair = Playfair_Display({
+  weight: ['400', '500', '600', '700', '800', '900'],
+  subsets: ["latin"],
+  variable: "--font-reserve",
 });
 
 export const metadata: Metadata = {
@@ -54,7 +60,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${outfit.variable} ${cormorant.variable} font-sans`}>
+      <body className={`${outfit.variable} ${cormorant.variable} ${playfair.variable} font-sans`}>
         <Script
           src="https://checkout.razorpay.com/v1/checkout.js"
           strategy="lazyOnload"
@@ -69,6 +75,7 @@ export default async function RootLayout({
             </CartAnimationProvider>
           </Providers>
         </AuthProvider>
+        <div className="fixed bottom-10 right-10 z-50 opacity-[0.03] mix-blend-overlay text-9xl tracking-tighter pointer-events-none font-bold uppercase" style={{ fontFamily: 'var(--font-reserve)' }}>Reserve</div>
       </body>
     </html>
   );

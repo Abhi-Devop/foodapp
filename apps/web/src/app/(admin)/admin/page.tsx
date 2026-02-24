@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { DollarSign, ShoppingBag, Users, TrendingUp } from "lucide-react";
+import { DollarSign, ShoppingBag, Users, TrendingUp, CalendarDays } from "lucide-react";
 import { apiClient } from "@/lib/api-client";
 import Loading from "@/app/loading";
 
@@ -10,36 +10,39 @@ export default function AdminDashboard() {
     { title: "Total Revenue", value: "₹0", icon: DollarSign, color: "bg-green-500" },
     { title: "Total Orders", value: "0", icon: ShoppingBag, color: "bg-blue-500" },
     { title: "Active Users", value: "0", icon: Users, color: "bg-purple-500" },
-    { title: "Avg. Order Value", value: "₹0", icon: TrendingUp, color: "bg-orange-500" },
+    { title: "Total Reservations", value: "0", icon: CalendarDays, color: "bg-rose-500" },
   ]);
   const [orderList, setOrderList] = useState<any[]>([]);
+  const [reservationList, setReservationList] = useState<any[]>([]);
 
   useEffect(() => {
     const loadStats = async () => {
         try {
-            const [orders, users] = await Promise.all([
+            const [orders, users, reservations] = await Promise.all([
                 apiClient.get<any[]>('/orders'), // Admin endpoint returning all orders
-                apiClient.post<any[]>('/auth/users', {}) // Auth controller uses POST for users list
+                apiClient.post<any[]>('/auth/users', {}), // Auth controller uses POST for users list
+                apiClient.get<any[]>('/reservations/all') // Admin endpoint for reservations
             ]);
             
             const totalRevenue = orders.reduce((acc, order) => {
-                // Include if PAID or if it's a COD order that is CONFIRMED (implying payment will be collected)
-                // For now, let's include all CONFIRMED orders as "Revenue" (booked revenue)
                 if (order.status === 'CONFIRMED' || order.paymentStatus === 'PAID') {
                     return acc + (order.totalAmount || 0);
                 }
                 return acc;
             }, 0);
+            
             setOrderList(orders); // Save full list for table
+            setReservationList(reservations);
+            
             const orderCount = orders.length;
             const userCount = users.length;
-            const avgOrderValue = orderCount > 0 ? Math.round(totalRevenue / orderCount) : 0;
+            const reservationCount = reservations.length;
 
             setStats([
-                { title: "Total Revenue", value: `₹${totalRevenue.toLocaleString()}`, icon: DollarSign, color: "bg-green-500" },
+                { title: "Total Revenue", value: `₹${(totalRevenue / 100).toLocaleString()}`, icon: DollarSign, color: "bg-green-500" },
                 { title: "Total Orders", value: orderCount.toString(), icon: ShoppingBag, color: "bg-blue-500" },
                 { title: "Total Users", value: userCount.toString(), icon: Users, color: "bg-purple-500" },
-                { title: "Avg. Order Value", value: `₹${avgOrderValue}`, icon: TrendingUp, color: "bg-orange-500" },
+                { title: "Reservations", value: reservationCount.toString(), icon: CalendarDays, color: "bg-rose-500" },
             ]);
         } catch (e) {
             console.error("Failed to load admin stats:", e);
@@ -132,6 +135,66 @@ export default function AdminDashboard() {
                                 </td>
                                 <td className="py-4 px-6 text-sm text-gray-500">
                                     {new Date(order.createdAt).toLocaleDateString()}
+                                </td>
+                            </tr>
+                        ))
+                    )}
+                </tbody>
+            </table>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mt-8">
+        <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+            <h2 className="text-xl font-bold text-gray-900">Recent Table Reservations</h2>
+            <button className="text-sm font-bold text-rose-600 hover:text-rose-700">View All</button>
+        </div>
+        <div className="overflow-x-auto">
+            <table className="w-full">
+                <thead className="bg-gray-50 border-b border-gray-100">
+                    <tr>
+                        <th className="text-left py-4 px-6 text-xs font-bold text-gray-400 uppercase tracking-wider">Date & Time</th>
+                        <th className="text-left py-4 px-6 text-xs font-bold text-gray-400 uppercase tracking-wider">Guest Details</th>
+                        <th className="text-left py-4 px-6 text-xs font-bold text-gray-400 uppercase tracking-wider">Party Size</th>
+                        <th className="text-left py-4 px-6 text-xs font-bold text-gray-400 uppercase tracking-wider">Status</th>
+                    </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                    {reservationList.length === 0 ? (
+                        <tr>
+                            <td colSpan={4} className="py-12 text-center text-gray-400">No reservations found.</td>
+                        </tr>
+                    ) : (
+                        reservationList.map((res) => (
+                            <tr key={res.id} className="hover:bg-gray-50 transition-colors group">
+                                <td className="py-4 px-6">
+                                    <div className="text-sm font-bold text-gray-900">{new Date(res.date).toLocaleDateString()}</div>
+                                    <div className="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
+                                        <CalendarDays size={12} /> {res.timeSlot}
+                                    </div>
+                                </td>
+                                <td className="py-4 px-6">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 font-bold text-xs uppercase">
+                                            {res.customerName?.[0] || 'G'}
+                                        </div>
+                                        <div>
+                                            <div className="text-sm font-bold text-gray-900">{res.customerName || 'Guest'}</div>
+                                            <div className="text-xs text-gray-500">{res.phone || res.email}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td className="py-4 px-6 text-sm font-bold text-gray-900">
+                                    {res.guestCount} {res.guestCount > 1 ? 'Guests' : 'Guest'}
+                                </td>
+                                <td className="py-4 px-6">
+                                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide
+                                        ${res.status === 'CONFIRMED' ? 'bg-green-100 text-green-700' : 
+                                          res.status === 'PENDING' ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-700'
+                                        }`}
+                                    >
+                                        {res.status}
+                                    </span>
                                 </td>
                             </tr>
                         ))
